@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:shopping_app_v1/main_categories.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'add_to_cart.dart';
 
 class ProductDetailPage extends StatelessWidget {
 
@@ -94,7 +97,9 @@ class ProductDetailPage extends StatelessWidget {
                             height: 50, // <-- Your button height
 
                             child:  ElevatedButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCart()));
+                              },
                               style: const ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.orange),
                               ),

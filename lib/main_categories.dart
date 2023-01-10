@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'inner/product_details.dart';
 
 class MainCategories extends StatefulWidget {
