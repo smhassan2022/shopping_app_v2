@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app_v1/main_categories.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailPage extends StatelessWidget {
 
@@ -54,21 +55,45 @@ class ProductDetailPage extends StatelessWidget {
                       Text("Available in stock", style: TextStyle(fontSize: 12, color: Colors.black87, fontWeight: FontWeight.normal),),
                     ],
                   ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      RatingBar.builder(
+                        initialRating: 2.5 ,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemSize: 20,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.orange,
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20,),
                   Container(
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children:  [
                         Text("Description", style: TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold),),
                         SizedBox(height: 10,),
                         Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                          style: TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.normal, height: 1.5,),),
+                          style: TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.normal, height: 1.5,),
+                        ),
                         SizedBox(height: 20,),
                         SizedBox(
                             width: double.infinity, // <-- Your width
-                            height: 50, // <-- Your height
-                            child: ElevatedButton(
+                            height: 50, // <-- Your button height
+
+                            child:  ElevatedButton(
                               onPressed: (){},
                               style: const ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.orange),

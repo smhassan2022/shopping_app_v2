@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   // create method to stay on page for few secs
   void delay () async{
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));
   }
 
