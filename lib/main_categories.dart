@@ -38,7 +38,6 @@ class _MainCategoriesState extends State<MainCategories> {
     'PKR 5,600',
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
