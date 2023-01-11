@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Model/model_list.dart';
 import 'inner/product_details.dart';
 
 class MainCategories extends StatefulWidget {
@@ -7,41 +8,27 @@ class MainCategories extends StatefulWidget {
   @override
   State<MainCategories> createState() => _MainCategoriesState();
 }
+  List<MainModelData> cartProductDataList=[];
 
-class _MainCategoriesState extends State<MainCategories> {
+  class _MainCategoriesState extends State<MainCategories> {
 
-  List<String> imageUrls=[
-    "assets/images/products/pro-img02.png",
-    "assets/images/products/pro-img03.png",
-    "assets/images/products/pro-img04.png",
-    "assets/images/products/pro-img05.png"];
+  MainModelData mainModelData1 = MainModelData(proTitle: "Perfume Secret Desire", proImage: 'assets/images/products/pro-img02.png', proPrice: 5600, proDescription: "Dummy perfumes for testing purpose only.", proDiscount: 25, proRating: 3.5);
+  MainModelData mainModelData2 = MainModelData(proTitle: "Perfume Desire Secret", proImage: 'assets/images/products/pro-img03.png', proPrice: 2200, proDescription: "Dummy text for testing purpose only.", proDiscount: 15, proRating: 4.5);
 
-  List<String> tryDiscount=[
-    '30%',
-    '40%',
-    '10%',
-    '15%',
-  ];
+  List<MainModelData> productDataList=[];
+  @override
+  void initState() {
+    productDataList.add(mainModelData1);
+    productDataList.add(mainModelData2);
 
-  List<String> tryTitle=[
-    'Perfume Secret Desire',
-    'Perfume ENZO New',
-    'Casual t-Shirt all Sizes',
-    'Ladies Hangbag',
-  ];
-
-  List<String> tryPrice=[
-    'PKR 3,200',
-    'PKR 3,999',
-    'PKR 4,150',
-    'PKR 5,600',
-  ];
-
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GridView.builder(
-        itemCount: imageUrls.length,
+        itemCount: productDataList.length,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -54,7 +41,7 @@ class _MainCategoriesState extends State<MainCategories> {
   }
 
   shoppingCard(i) {
-
+    MainModelData p=productDataList[i];
     return Container(
 
       padding: EdgeInsets.only(top: 10),
@@ -68,11 +55,7 @@ class _MainCategoriesState extends State<MainCategories> {
       child: GestureDetector(
         onTap: (){
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ProductDetailPage(
-                itemTitle: tryTitle[i],
-                imageUrls: imageUrls [i],
-                tryPrice: tryPrice[i],
-                  ),
+            MaterialPageRoute(builder: (context) => ProductDetailPage(p),
                 ),
               );
         },
@@ -84,18 +67,13 @@ class _MainCategoriesState extends State<MainCategories> {
                 TextButton(
                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
                   onPressed: (){},
-                  child: Text(tryDiscount[i], style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),),),
+                  child: Text("${p.productDiscount!}", style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),),),
                 Icon(Icons.add_shopping_cart_outlined),
               ],
             ),
-            Image.asset(imageUrls[i], height: 80,),
-            Text(tryTitle[i],style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.normal),),
-            Text(tryPrice[i],style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),),
-
-            // Text("Perfume for men", style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),),
-            // Text("Just in PKR 3200", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-
-
+            Image.asset("${p.productImage!}", height: 80,),
+            Text("${p.productTitle}",style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.normal),),
+            Text("${p.productPrice}",style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold),),
           ],
         ),
       ),

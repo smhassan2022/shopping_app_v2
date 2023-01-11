@@ -3,25 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app_v1/main_categories.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../Model/model_list.dart';
 import 'add_to_cart.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
 
+  MainModelData p;
+  ProductDetailPage(this.p);
 
-  final String itemTitle;
-  final String imageUrls;
-  final String tryPrice;
+  @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
 
+class _ProductDetailPageState extends State<ProductDetailPage> {
 
-  const ProductDetailPage({Key? key,
-    required this.itemTitle,
-    required this.imageUrls,
-    required this.tryPrice}
-    ) : super(key: key);
+  late MainModelData displayData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    displayData=widget.p;
+  }
 
   @override
   Widget build(BuildContext context) {
-   
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffefefef),
@@ -43,18 +50,18 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
 
           children: [
-            Image.asset(imageUrls),
+            Image.asset("${displayData.productImage}"),
             Container(
               width: double.infinity,
               child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(itemTitle, style: TextStyle(fontSize: 16, color: Colors.black87, fontWeight: FontWeight.normal),),
+                  Text("${displayData.productTitle}", style: TextStyle(fontSize: 16, color: Colors.black87, fontWeight: FontWeight.normal),),
                   SizedBox(height: 5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(tryPrice, style: TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold),),
+                      Text("${displayData.productPrice}", style: TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold),),
                       Text("Available in stock", style: TextStyle(fontSize: 12, color: Colors.black87, fontWeight: FontWeight.normal),),
                     ],
                   ),
@@ -63,7 +70,7 @@ class ProductDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       RatingBar.builder(
-                        initialRating: 2.5 ,
+                        initialRating: displayData.productRating!,
                         minRating: 1,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
@@ -88,7 +95,7 @@ class ProductDetailPage extends StatelessWidget {
                       children:  [
                         Text("Description", style: TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold),),
                         SizedBox(height: 10,),
-                        Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                        Text("${displayData.productDescription}",
                           style: TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.normal, height: 1.5,),
                         ),
                         SizedBox(height: 20,),
@@ -98,6 +105,7 @@ class ProductDetailPage extends StatelessWidget {
 
                             child:  ElevatedButton(
                               onPressed: (){
+                                cartProductDataList.add(displayData);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> AddCart()));
                               },
                               style: const ButtonStyle(
